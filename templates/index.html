@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Gold Price</title>
+</head>
+<body>
+    <h1>Live Gold Price</h1>
+    {% if latest_price %}
+        <p><strong>Date:</strong> {{ latest_price.Date }}</p>
+        <p><strong>Price:</strong> ₹{{ latest_price.Price }}/gm</p>
+    {% else %}
+        <p>No price data available yet. Please wait...</p>
+    {% endif %}
+    <a href="/download"><button>Download CSV</button></a>
+</body>
+</html>
