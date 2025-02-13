@@ -1,11 +1,10 @@
 #!/bin/bash
 set -e
 
-# Download Chrome without using sudo
+# Install Chrome without sudo
 mkdir -p $HOME/chrome
-wget -q -O $HOME/chrome/chrome.zip https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_120.0.6099.129-1_amd64.deb
-cd $HOME/chrome
-dpkg-deb -x chrome.zip $HOME/chrome/
+wget -q -O $HOME/chrome/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg-deb -x $HOME/chrome/chrome.deb $HOME/chrome/
 export PATH="$HOME/chrome/opt/google/chrome/:$PATH"
 
 # Verify Chrome installation
