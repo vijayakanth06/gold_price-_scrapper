@@ -29,21 +29,24 @@ def scrape_price():
 
     try:
         driver = webdriver.Chrome(options=options)
+        print("🔍 DEBUG: WebDriver started, opening page...")  # Debug log
+
         driver.get("https://auragold.in/")
+        time.sleep(5)
         print("🔍 DEBUG: Page loaded...")  # Debug log
 
-        time.sleep(5)
         price_element = driver.find_element(By.CSS_SELECTOR, ".live__price__container .price")
         price = price_element.text.strip()
-        driver.quit()
+        print(f"✅ DEBUG: Scraped Price: {price}")  # Debug log
 
-        print(f"✅ Scraped Price: {price}")  # Debug log
+        driver.quit()
         return price
 
     except Exception as e:
         print(f"❌ Selenium Error: {e}")
         driver.quit()
         return None
+
 
 
 
