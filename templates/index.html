@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Gold Price</title>
+    <title>Gold Price CSV Format</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        pre { background: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+    </style>
 </head>
 <body>
-    <h1>Live Gold Price</h1>
-    <p><strong>Date:</strong> {{ latest_price.Date }}</p>
-    <p><strong>Time:</strong> {{ latest_price.Time }}</p>
-    <p><strong>Price:</strong> ₹{{ latest_price.Price }}/gm</p>
+    <h1>Live Gold Price Data (CSV Format)</h1>
+    <pre>
+Date,Time,Price
+{{ latest_price.Date }},{{ latest_price.Time }},₹{{ latest_price.Price }}/gm
+    </pre>
     <a href="/download"><button>Download CSV</button></a>
 </body>
 </html>

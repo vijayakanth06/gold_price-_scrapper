@@ -30,7 +30,8 @@ def scrape_price():
     time.sleep(5)  # Wait for page to load
 
     try:
-        price_element = driver.find_element(By.CSS_SELECTOR, ".live__price__container .price")
+        # Ensure correct selector (Check via DevTools)
+        price_element = driver.find_element(By.CSS_SELECTOR, ".price")
         price = price_element.text.strip()
         driver.quit()
         return price
@@ -45,7 +46,11 @@ def save_to_csv(price):
     date, time_str = date_time.split(" ")
 
     df = pd.DataFrame([[date, time_str, price]], columns=["Date", "Time", "Price"])
-    df.to_csv(CSV_FILE, mode="a", header=False, index=False)
+    
+    # Append data but write headers if the file is empty
+    file_exists = os.path.exists(CSV_FILE) and os.path.getsize(CSV_FILE) > 0
+    df.to_csv(CSV_FILE, mode="a", header=not file_exists, index=False)
+    
     print(f"Saved: {date} {time_str} - ₹{price}/gm")
 
 def update_price():
@@ -66,7 +71,7 @@ def index():
     """Displays the latest gold price on the web page"""
     try:
         df = pd.read_csv(CSV_FILE)
-        latest_price = df.iloc[-1].to_dict()
+        latest_price = df.iloc[-1].to_dict() if not df.empty else {"Date": "N/A", "Time": "N/A", "Price": "N/A"}
     except Exception as e:
         print(f"Error reading CSV: {e}")
         latest_price = {"Date": "N/A", "Time": "N/A", "Price": "N/A"}

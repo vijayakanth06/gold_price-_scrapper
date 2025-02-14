@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-# Install Chromium (lightweight alternative to Google Chrome)
+# Install Chromium
 apt-get update && apt-get install -y chromium-browser
 
-# Set Chromium path for Selenium
+# Set Chromium path
 export CHROME_BIN=/usr/bin/chromium-browser
 
 # Start Flask app
