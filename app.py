@@ -21,9 +21,9 @@ def scrape_price():
     """Scrapes live gold price from auragold.in using Selenium"""
     options = Options()
     options.add_argument("--headless")  # Run in headless mode
-    options.add_argument("--no-sandbox")  # Bypass sandbox for non-root users
+    options.add_argument("--no-sandbox")  # Required for non-root users
     options.add_argument("--disable-dev-shm-usage")  # Prevent memory issues
-    options.binary_location = "/usr/bin/chromium"  # Correct path for Render
+    options.binary_location = "/tmp/chrome/chrome-linux64/chrome"  # Correct Chromium path
 
     try:
         driver = webdriver.Chrome(options=options)
@@ -38,6 +38,7 @@ def scrape_price():
         print(f"Error extracting price: {e}")
         driver.quit()
         return None
+
 
 def save_to_csv(price):
     """Saves the latest gold price to CSV"""
