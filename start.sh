@@ -22,4 +22,5 @@ echo "Chromium installed at $CHROME_PATH"
 cd /opt/render/project/src
 
 # Run Gunicorn (Make sure app.py exists)
-gunicorn -b 0.0.0.0:5000 app:app
+gunicorn -b 0.0.0.0:5000 app:app --workers=3 --timeout=120
+

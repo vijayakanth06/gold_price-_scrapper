@@ -20,29 +20,31 @@ if not os.path.exists(CSV_FILE):
 def scrape_price():
     """Scrapes live gold price from auragold.in using Selenium"""
     options = Options()
-    options.add_argument("--headless")  # Run in headless mode
-    options.add_argument("--no-sandbox")  # Bypass sandbox
-    options.add_argument("--disable-dev-shm-usage")  # Fix memory issues
-    options.binary_location = "/tmp/chrome/chrome-linux64/chrome"  # Update Chromium path
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.binary_location = "/tmp/chrome/chrome-linux64/chrome"
 
-    print("Starting Selenium...")  # Debugging line
-
-    driver = webdriver.Chrome(options=options)
-    driver.get("https://auragold.in/")
-
-    time.sleep(5)  # Wait for page to load
-    print("Page loaded...")  # Debugging line
+    print("🔍 DEBUG: Initializing WebDriver...")  # Debug log
 
     try:
+        driver = webdriver.Chrome(options=options)
+        driver.get("https://auragold.in/")
+        print("🔍 DEBUG: Page loaded...")  # Debug log
+
+        time.sleep(5)
         price_element = driver.find_element(By.CSS_SELECTOR, ".live__price__container .price")
         price = price_element.text.strip()
         driver.quit()
-        print(f"Scraped Price: {price}")  # Debugging line
+
+        print(f"✅ Scraped Price: {price}")  # Debug log
         return price
+
     except Exception as e:
-        print(f"Error extracting price: {e}")
+        print(f"❌ Selenium Error: {e}")
         driver.quit()
         return None
+
 
 
 
