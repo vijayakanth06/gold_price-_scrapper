@@ -23,15 +23,14 @@ def scrape_price():
     options.add_argument("--headless")  # Run in headless mode
     options.add_argument("--no-sandbox")  # Bypass sandbox for non-root users
     options.add_argument("--disable-dev-shm-usage")  # Prevent memory issues
-    options.binary_location = "/usr/bin/chromium-browser"  # Use Chromium
-
-    driver = webdriver.Chrome(options=options)
-    driver.get("https://auragold.in/")
-    time.sleep(5)  # Wait for page to load
+    options.binary_location = "/usr/bin/chromium"  # Correct path for Render
 
     try:
-        # Ensure correct selector (Check via DevTools)
-        price_element = driver.find_element(By.CSS_SELECTOR, ".price")
+        driver = webdriver.Chrome(options=options)
+        driver.get("https://auragold.in/")
+        time.sleep(5)  # Wait for page to load
+
+        price_element = driver.find_element(By.CSS_SELECTOR, ".live__price__container .price")
         price = price_element.text.strip()
         driver.quit()
         return price

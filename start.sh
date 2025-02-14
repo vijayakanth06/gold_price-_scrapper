@@ -1,11 +1,17 @@
 #!/bin/bash
+
+# Exit on any error
 set -e
 
-# Install Chromium
-apt-get update && apt-get install -y chromium-browser
+# Install dependencies
+pip install -r requirements.txt
 
-# Set Chromium path
-export CHROME_BIN=/usr/bin/chromium-browser
+# Ensure Chromium is installed (Render provides it)
+CHROME_PATH="/usr/bin/chromium"
+if [ ! -f "$CHROME_PATH" ]; then
+    echo "Chromium not found! Exiting..."
+    exit 1
+fi
 
-# Start Flask app
+# Start the Flask app
 gunicorn -b 0.0.0.0:5000 app:app
